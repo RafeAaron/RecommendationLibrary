@@ -1,0 +1,79 @@
+{
+    "movies":
+        {
+            "MOV001": {
+                "Rating": "4.5",
+                "Title": "Godzilla: Return of the Apes",
+                "NumberOfViews": 450000,
+                "dateAdded": "2024-10-10",
+                "Genre": ["Drame", "Horror", "Fiction"]
+            },
+
+            "MOV002": {
+                "Rating": "4.2",
+                "Title": "Man of Steel",
+                "NumberOfViews": 650000,
+                "dateAdded": "2023-10-01",
+                "Genre": ["Action", "Adventure", "Comedy"]
+            },
+
+            "MOV003": {
+                "Rating": "4.8",
+                "Title":"Fire Man",
+                "NumberOfViews": 54000,
+                "dateAdded": "2023-08-12",
+                "Genre": ["Action", "Drama", "Thriller"]
+            }
+    },
+
+    "songs": 
+        {
+            "SONG001": {
+                "NumberOfStreams": 43000,
+                "dateAdded": "2024-10-23",
+                "Genre": "Hip Hop",
+                "Title": "The Beginning and End",
+                "Artist": "Mac D Big"
+            },
+
+            "SONG002": {
+                "NumberOfStreams": 23000,
+                "dateAdded": "2024-03-19",
+                "Genre": "Melody",
+                "Title": "Twinkle Twinkle Little Stars",
+                "Artist": "Little Mac D"
+            },
+
+            "SONG003": {
+                "NumberOfStreams": 12000,
+                "dateAdded": "2023-06-19",
+                "Genre": "Rap",
+                "Title": "Rocky Hills",
+                "Artist": "FlantWell"
+            }
+        },
+
+        "notifications": {
+            "NOTIFY001": {
+                "Message": "Every student gather in the Common Room By 7:30pm.",
+                "Intended Audience": ["Students", "Administrators"],
+                "dateAdded": "2024-10-29",
+                "Author": "Mr. Adams",
+                "numberOfLikes": 80000
+            },
+
+            "NOTIFY002": {
+                "Message": "All staff have a meeting in the Common Room at 9:30pm.",
+                "Intended Audience": ["Staff", "Administrators"],
+                "dateAdded": "2024-03-19",
+                "Author": "Mr. Black Jones"
+            },
+
+            "NOTIFY003": {
+                "Message": "We are excited to announce the increase of teachers salaries.",
+                "Intended Audience": ["Teachers"],
+                "dateAdded": "2024-01-15",
+                "Author": "Mr. Deogratious"
+            }
+        }
+}
