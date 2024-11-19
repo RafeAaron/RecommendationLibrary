@@ -12,7 +12,7 @@ class History:
         self.history.append(data)
 
     def deleteRecordHistory(self, id:str, category:str = None):
-        if category == "Null":
+        if category is None:
             for record in self.history:
                 if record[1] == id:
                     self.history.remove(record)

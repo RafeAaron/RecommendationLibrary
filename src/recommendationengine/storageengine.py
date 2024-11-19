@@ -2,10 +2,10 @@
 import json
 
 class StorageEngine:
-    def __init__(self, storageFileLocation = "Null"):
+    def __init__(self, storageFileLocation:str = None):
         self.data = {}
 
-        if storageFileLocation == "Null":
+        if storageFileLocation is None:
             self.data = {}
         
         else:

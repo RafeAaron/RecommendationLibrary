@@ -1,13 +1,19 @@
 #Users Class
 from record import History
+from location import Location
 import json
 
 class User:
 
-    def __init__(self, id:str, history:History = None):
+    def __init__(self, id:str, history:History = None, location:Location = None):
         self.id = name
 
-        if history == None:
+        if location is None:
+            self.location = "Unknown"
+        else:
+            self.location = location
+
+        if history is None:
             self.history:History = []
         else:
             self.history:History = history.getHistory()
@@ -21,8 +27,14 @@ class User:
     def searchInHistory(self, id:str, category:str):
         self.history.searchForRecordInHistory(id, category)
 
+    def getLocation(self):
+        return self.location.getLocation()
+    
+    def setLocation(self, location:Location):
+        self.location = location
+
     def objectToDict(self):
-        return {"user": {"id": self.id, "history": self.history.objectToDict()}}
+        return {"user": {"id": self.id, "history": self.history.objectToDict(), "location": self.getLocation()}}
     
     def toJSON(self):
         return json.dumps(self.objectToDict())
