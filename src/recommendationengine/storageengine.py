@@ -90,3 +90,64 @@ class StorageEngine:
                 
             
         return False
+    
+    def getRecordWithId(self, id:str, category:str):
+        for record in self.data:
+            if category not in record.keys():
+                return "Record Doesn't Exist"
+            
+            else:
+                if id not in self.data[category].keys():
+                    return f"Record with id{id} doesn't exist"
+                
+                else:
+                    for record in self.data[category]:
+                        for recordDetailed in record:
+                            if recordDetailed[id] == id:
+                                return recordDetailed
+                            
+    def getRecordsWithIds(self, ids:list, category:str):
+        values = []
+        idsNotPresent = []
+
+        for record in self.data:
+            if category not in record.keys():
+                return "Records Don't Exist"
+            
+            else:
+                for id in ids:
+                    if id not in self.data[category].keys():
+                        idsNotPresent.append(id)
+                        continue
+                    
+                    else:
+                        for record in self.data[category]:
+                            for recordDetailed in record:
+                                if id in recordDetailed.keys():
+                                    values.append(recordDetailed)
+
+            return (values, idsNotPresent)
+
+
+    def getRecordsWithIdsInMultipleCategories(self, ids:list, categories:list):
+        values = []
+        idsNotPresent = []
+        categoriesNotPresent = []
+
+        for category in categories:
+            if category not in self.data.keys():
+                categoriesNotPresent.append(category)
+                continue
+            
+            else:
+                for id in ids:
+                    if id not in self.data[category].keys():
+                        idsNotPresent.append(id)
+                        continue
+                    
+                    else:
+                        for record in self.data[category]:
+                            for recordDetailed in record:
+                                if id in recordDetailed.keys():
+                                    values.append(recordDetailed)
+        return (values, idsNotPresent, categoriesNotPresent)
