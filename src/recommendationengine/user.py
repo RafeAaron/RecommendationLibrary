@@ -22,19 +22,28 @@ class User:
         self.history.addToHistory(data)
 
     def deleteFromHistory(self, id:str, category:str=None):
-        self.history.deleteRecordHistory(id, category)
+        self.history.deleteRecordInHistory(id, category)
 
     def searchInHistory(self, id:str, category:str):
         self.history.searchForRecordInHistory(id, category)
 
     def getLocation(self):
-        return self.location.getLocation()
+        return self.location
     
     def setLocation(self, location:Location):
         self.location = location
+    
+    def getId(self):
+        return self.id
 
     def objectToDict(self):
-        return {"user": {"id": self.id, "history": self.history.objectToDict(), "location": self.getLocation()}}
+        return {f"user{self.id}": {"id": self.id, "history": self.history.objectToDict(), "location": self.getLocation()}}
     
     def toJSON(self):
-        return json.dumps(self.objectToDict())
+        return json.dumps(self.objectToDict(), indent=4)
+    
+    def getHistory(self):
+        return self.history
+    
+    def setHistory(self, history:History):
+        self.history = history

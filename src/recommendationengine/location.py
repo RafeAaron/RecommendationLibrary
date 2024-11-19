@@ -28,8 +28,11 @@ class Location:
     def setRegion(self, region:str):
         self.region = region
 
+    def getLocationInFloat(self):
+        return [float(self.latitude), float(self.longitude)]
+
     def getLocation(self):
-        return (self.getLatitude(), self.getLongitude())
+        return [self.getLatitude(), self.getLongitude()]
     
     def setLocation(self, latitude:str, longitude:str):
         self.longitude = longitude

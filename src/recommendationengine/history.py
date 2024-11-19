@@ -11,7 +11,7 @@ class History:
     def addToHistory(self, data:list):
         self.history.append(data)
 
-    def deleteRecordHistory(self, id:str, category:str = None):
+    def deleteRecordInHistory(self, id:str, category:str = None):
         if category is None:
             for record in self.history:
                 if record[1] == id:
@@ -31,6 +31,9 @@ class History:
 
     def getHistory(self):
         return self.history
+    
+    def setHistory(self, data:list):
+        self.history = data
     
     def viewHistory(self):
         string = "History\n"

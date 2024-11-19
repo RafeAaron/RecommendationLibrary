@@ -7,6 +7,16 @@ class FilteringEngine:
     def getValuesForCategory(self, data:dict):
         return data.values()
     
+    def getValuesForCategoryWithLabel(self, data:list, label, category):
+
+        values = []
+
+        for dataPoint in data:
+            if category in dataPoint.keys() and label in dataPoint[category].keys():
+                values.append(dataPoint.values())
+
+        return values
+
     def doesLabelExist(self, label, dataPresent:list):
         for data in dataPresent:
             if label not in data.keys():
@@ -41,6 +51,8 @@ class FilteringEngine:
 
         for data in data.keys():
             values.append(data)
+
+        return values
 
     def getValuesWithSubstring(self, data:dict, substring:str):
         values = []
@@ -100,3 +112,28 @@ class FilteringEngine:
                 values.append(value)
 
         return values
+    
+    def sortRecords(self, data:list, labelToUse:str):
+
+        dataSieved = []
+        values = []
+        highest = 0
+        highestIndex = -1
+        takenIndexes = []
+
+        for dataPoint in data:
+            if labelToUse in dataPoint.values().keys():
+                dataSieved.append(dataPoint)
+
+        for i in range(len(dataSieved)):
+            highestIndex = 0
+            for a in range(len(dataSieved)):
+                if dataSieved[a].values()[labelToUse] > highest and a not in takenIndexes:
+                    highest = dataSieved[a].values()[labelToUse]
+                    highestIndex = a
+                    takenIndexes.append(a)
+
+            values.append(dataSieved[highestIndex])
+
+                    
+            

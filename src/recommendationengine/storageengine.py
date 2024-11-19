@@ -57,7 +57,7 @@ class StorageEngine:
 
                 else:
                     for example in loadedData[category].keys():
-                        self.data[category][self.data[category][example]]  =loadedData[category][example]
+                        self.data[category][self.data[category][example]]  = loadedData[category][example]
 
 
         except IOError as ioError:
@@ -92,7 +92,18 @@ class StorageEngine:
             
         return False
     
-    def getRecordWithId(self, id:str, category:str):
+    def getRecordWithId(self, id:str):
+        for record in self.data:
+            if id not in self.data.keys():
+                return f"Record with id{id} doesn't exist"
+            
+            else:
+                for record in self.data.values():
+                    for recordDetailed in record:
+                        if recordDetailed.keys()[0] == id:
+                            return recordDetailed
+    
+    def getRecordWithIdAndCategory(self, id:str, category:str):
         for record in self.data:
             if category not in record.keys():
                 return "Record Doesn't Exist"
@@ -128,7 +139,24 @@ class StorageEngine:
                                     values.append(recordDetailed)
 
             return (values, idsNotPresent)
+        
+    def getRecordsInCategory(self, category:str):
+        if category not in self.data.keys():
+            return "Category Doesn't exist"
+        
+        values = []
+        for record in self.data[category]:
+            values.append(record)
 
+        return values
+    
+    def getAllRecords(self):
+        values = []
+        for category in self.data.keys():
+            for value in self.data[category]:
+                values.append(value)
+
+        return values
 
     def getRecordsWithIdsInMultipleCategories(self, ids:list, categories:list):
         values = []
