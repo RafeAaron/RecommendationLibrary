@@ -1,12 +1,12 @@
 #Users Class
-from record import History
+from history import History
 from location import Location
 import json
 
 class User:
 
     def __init__(self, id:str, history:History = None, location:Location = None):
-        self.id = name
+        self.id = id
 
         if location is None:
             self.location = "Unknown"
