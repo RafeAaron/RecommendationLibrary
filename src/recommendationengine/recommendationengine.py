@@ -1,9 +1,9 @@
 # Recommendation Engine for the library
-from storageengine import StorageEngine
-from filteringengine import FilteringEngine
-from usermanager import UserManager
-from user import User
-from location import Location
+from recommendationengine.storageengine import StorageEngine
+from recommendationengine.filteringengine import FilteringEngine
+from recommendationengine.usermanager import UserManager
+from recommendationengine.user import User
+from recommendationengine.location import Location
 
 class RecommendationEngine:
     def __init__(self, id:str = None, storageEngineToQuery:StorageEngine = None, filter:FilteringEngine = None, userManager:UserManager = None):

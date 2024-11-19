@@ -1,6 +1,7 @@
 import sys
-import os
-sys.path.append("/Users/rafeaaron/Desktop/RecommendationLibrary/src/")
+
+sys.path.append("/Users/rafeaaron/Desktop/RecommendationLibrary/src")
+print(sys.path)
 
 from recommendationengine import recommendationengine
 from recommendationengine import storageengine
@@ -9,6 +10,7 @@ from recommendationengine import filteringengine
 def main():
     storage = storageengine.StorageEngine("./src/test/data.json")
     filter = filteringengine.FilteringEngine()
+    recommendationSystem = recommendationengine.RecommendationEngine()
 
     #storage.viewCategoriesOfStoredData()
     #print(storage.returnDataInCategory("songs"))
