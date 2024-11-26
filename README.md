@@ -127,3 +127,65 @@ This takes in no parameters and returns a list of all records presently stored i
 This takes in two parameters, a list of ids and a list of categories
 
 it returns a tuple containing records in the zero index, ids not present in the first index and categories in the second index
+
+## Filtering Engine
+This part of the system deals with filtering a set of records to only extract those that match a certain criteria. 
+
+It is mainly used to filter data that has just come out of the storage engine before it goes into the recommendation algorithm. It mainly utilizes lists in it's everyday operation.
+
+The filtering engine uses the following API's
+#### doesLabelExist(label)
+This takes in a string parameter and a list of data.
+
+And returns True or false basing on if one of the keys in this list is the label being queried
+
+#### getRecordsWithLabels(data, labels)
+This takes in a list of data and a list of labels
+
+And returns records in the list of data that have keys that resemble any of the labels. It returns a list
+
+#### getRecordsWithLabel(label, data)
+This takes in a list of data and a label
+
+It returns all record in the data that have a particular label as a key
+
+#### getLabels(data)
+This takes in a list of data
+
+This returns all unique labels present in a list of data 
+
+#### getValuesWithSubstring(data, substring)
+This takes in a list of data and a substring
+
+This returns all values that match the substring specified. The returned values are brought back in a list
+
+#### sortRecords(data, labeltoUse)
+This takes in a list of data and sorts it in descending order in respect to the label in use
+
+Returns a sorted list in descending order according to the values attached to the labeltoUse
+
+Note: All lists of data as parameters should be the final level of the hierarchy for example the final level of the heirarchy below:
+
+```json
+    {
+        "feature":{
+            "feature_instance_id":{
+                "feature-detail_1": "detail information",
+                "feature-detail_2": "detail information",
+                "feature-detail_3": "detail information"
+            }
+        }
+    }
+```
+
+would be
+```json
+    {
+        "feature-detail_1": "detail information",
+        "feature-detail_2": "detail information",
+        "feature-detail_3": "detail information"
+    }
+
+```
+
+So the list would be a list of objects similar to the one above:

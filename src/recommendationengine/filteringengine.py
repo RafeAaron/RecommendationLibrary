@@ -1,21 +1,6 @@
 # a filtering engine for the recommendation library
 
-class FilteringEngine:
-    def getCategories(self, data:dict):
-        return data.keys()
-    
-    def getValuesForCategory(self, data:dict):
-        return data.values()
-    
-    def getValuesForCategoryWithLabel(self, data:list, label, category):
-
-        values = []
-
-        for dataPoint in data:
-            if category in dataPoint.keys() and label in dataPoint[category].keys():
-                values.append(dataPoint.values())
-
-        return values
+class FilteringEngine: 
 
     def doesLabelExist(self, label, dataPresent:list):
         for data in dataPresent:
@@ -28,8 +13,8 @@ class FilteringEngine:
 
         values = []
 
-        for label in labels:
-            for dataValue in data:
+        for dataValue in data:
+            for label in labels:
                 if label in dataValue.keys() and data not in values:
                     values.append(dataValue)
 
@@ -49,67 +34,98 @@ class FilteringEngine:
     def getLabels(self, data:dict):
         values = []
 
-        for data in data.keys():
-            values.append(data)
+        for dataPoint in data:
+            for label in dataPoint.keys():
+                if label not in values:
+                    values.append(label)
 
         return values
 
     def getValuesWithSubstring(self, data:dict, substring:str):
         values = []
         
-        for value in data.values():
-            if value.find(substring) == -1:
-                values.append(value)
+        for dataPoint in data:
+            for value in dataPoint.values():
+                if value.find(substring) != -1:
+                    values.append(value)
 
         return values
     
-    def getValuesGreaterThan(self, data:dict, base:int, fieldName:str):
+    def getRecordsWithValuesGreaterThan(self, data:dict, base, fieldName:str):
 
         values = []
 
-        for value in data.values():
-            if value[fieldName] > base:
-                values.append(value)
+        for dataPoint in data:
+
+            if fieldName not in dataPoint.keys():
+                continue
+
+            else:
+                for value in dataPoint:
+                    if value[fieldName] > base:
+                        values.append(dataPoint)
 
         return values
     
-    def getValuesLessThan(self, data:dict, base:int, fieldName:str):
+    def getRecordsWithValuesLessThan(self, data:dict, base, fieldName:str):
 
         values = []
+        for dataPoint in data:
 
-        for value in data.values():
-            if value[fieldName] < base:
-                values.append(value)
+            if fieldName not in dataPoint.keys():
+                continue
+
+            else:
+                for value in dataPoint:
+                    if value[fieldName] < base:
+                        values.append(dataPoint)
 
         return values
     
-    def getValuesEqualTo(self, data:dict, base:int, fieldName:str):
+    def getRecordsWithValuesEqualTo(self, data:dict, base, fieldName:str):
 
         values = []
+        for dataPoint in data:
 
-        for value in data.values():
-            if value[fieldName] == base:
-                values.append(value)
+            if fieldName not in dataPoint.keys():
+                continue
+
+            else:
+                for value in dataPoint:
+                    if value[fieldName] == base:
+                        values.append(dataPoint)
 
         return values
     
-    def getValuesLessThanOrEqualTo(self, data:dict, base:int, fieldName:str):
+    def getRecordsWithValuesLessThanOrEqualTo(self, data:dict, base:int, fieldName:str):
 
         values = []
 
-        for value in data.values():
-            if value[fieldName] <= base:
-                values.append(value)
+        for dataPoint in data:
+
+            if fieldName not in dataPoint.keys():
+                continue
+
+            else:
+                for value in dataPoint:
+                    if value[fieldName] <= base:
+                        values.append(dataPoint)
 
         return values
     
-    def getValuesGreaterThanOrEqualTo(self, data:dict, base:int, fieldName:str):
+    def getRecordsWithValuesGreaterThanOrEqualTo(self, data:dict, base:int, fieldName:str):
 
         values = []
 
-        for value in data.values():
-            if value[fieldName] >= base:
-                values.append(value)
+        for dataPoint in data:
+
+            if fieldName not in dataPoint.keys():
+                continue
+
+            else:
+                for value in dataPoint:
+                    if value[fieldName] >= base:
+                        values.append(dataPoint)
 
         return values
     
