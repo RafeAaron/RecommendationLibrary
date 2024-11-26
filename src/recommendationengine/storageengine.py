@@ -32,15 +32,11 @@ class StorageEngine:
 
     def returnDataInCategory(self, category):
         values = []
-        movieids = []
 
         if category not in self.data.keys():
             return "Category Doesn't Exist"
-        
-        for value in self.data[category]:
-            movieids.append(value)
 
-        for value in self.data[category].values():
+        for value in self.data[category]:
             values.append(value)
 
         return values
@@ -85,21 +81,19 @@ class StorageEngine:
         
     def doesRecordExist(self, label):
         for value in self.data.keys():
-            for subvalue in value[value].keys():
+            for subvalue in value.keys():
                 if label == subvalue:
-                    return label
+                    return True
                 
-            
         return False
     
     def getRecordWithId(self, id:str):
-        for record in self.data:
-            if id not in self.data.keys():
+        for record in self.data.values():
+            if id not in record.keys():
                 return f"Record with id{id} doesn't exist"
             
             else:
-                for record in self.data.values():
-                    for recordDetailed in record:
+                for recordDetailed in record:
                         if recordDetailed.keys()[0] == id:
                             return recordDetailed
     
@@ -114,17 +108,16 @@ class StorageEngine:
                 
                 else:
                     for record in self.data[category]:
-                        for recordDetailed in record:
-                            if recordDetailed[id] == id:
-                                return recordDetailed
+                            if record.keys()[0] == id:
+                                return record
                             
-    def getRecordsWithIds(self, ids:list, category:str):
+    def getRecordsWithIdsInCategory(self, ids:list, category:str):
         values = []
         idsNotPresent = []
 
         for record in self.data:
             if category not in record.keys():
-                return "Records Don't Exist"
+                return f"Records Don't Exist"
             
             else:
                 for id in ids:
@@ -134,9 +127,8 @@ class StorageEngine:
                     
                     else:
                         for record in self.data[category]:
-                            for recordDetailed in record:
-                                if id in recordDetailed.keys():
-                                    values.append(recordDetailed)
+                                if id in record.keys():
+                                    values.append(record)
 
             return (values, idsNotPresent)
         
@@ -176,7 +168,6 @@ class StorageEngine:
                     
                     else:
                         for record in self.data[category]:
-                            for recordDetailed in record:
-                                if id in recordDetailed.keys():
-                                    values.append(recordDetailed)
+                                if id in record.keys():
+                                    values.append(record)
         return (values, idsNotPresent, categoriesNotPresent)
