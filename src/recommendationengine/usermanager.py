@@ -91,6 +91,10 @@ class UserManager:
     def getUsersWithSimilarHistories(self, userToCompare:User, percentage = 50, maximum = 10, otherUsers = None):
         values = []
         lengthOfUserHistory = len(userToCompare.getHistory())
+
+        if lengthOfUserHistory == 0:
+            return "User has no history"
+
         container = None
 
         if otherUsers is None:

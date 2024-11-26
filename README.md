@@ -189,3 +189,169 @@ would be
 ```
 
 So the list would be a list of objects similar to the one above:
+
+## Recommendation Engine
+This engine is used for recommending features to users based on past user data and other criteria such as location and user history. With this engine, you can give recommendations based on user history and location in terms of x and y coordinates.
+
+Also it requires a usermanager, filteringsystem as well as an ID to function in it's full potential. Without those, it will be difficult for it to perform it's functions.
+
+This engine has a few api's you can use:
+#### recommendationsBasedOnSimilarity(userForComparison, maximumNumberOfRecommendations)
+This takes in two parameters, one optional and one compulsory: userForComparison is compulsory and maximumNumberOfRecommendations is optional.
+
+If the user is not present in the system, the api returns "User isn't registered in the list of users. Perhaps you should recommend in terms of likes or number Of views."
+
+The user passed in as a parameter can only have the Id set and if present in the system, the api will complete the data with the that one present in the system.
+
+It then returns a list of recommendations based on the user given and their history. 
+
+If the user has no history. The function will return "Try recommendations based on number of likes".
+
+#### recommendationsBasedOnNumberOfLikes(maximum)
+This takes in one optional parameter: maximum which is the maximum number of records you would like to recieve from the system.
+
+This returns a list of recommendations based on number of likes
+
+#### recommendationsBasedOnNumberOfViews(maximum)
+This takes in one optional parameter: maximum which is the maximum number of records you would like to recieve from the system.
+
+This returns a list of recommendations based on number of views.
+
+Note: For number of views and Number of likes, the data stored must have a feature detail "NumberOfLikes" or "NumberOfViews"
+
+#### recommendationBasedOnLocation(location, rangeInMeters, maximumRecommendations)
+This takes in three parameters: a location, rangeInMeters(Optional) and maximumRecommendations(Optional)
+
+If rangeInMeters is not set, we get recommendations from users in a range of 10km.
+
+If maximumRecommendations is not set, we get a maximum of 10 recommendations.
+
+It returns a list of recommendations based on nearby users.
+
+
+#### recommendationBasedOnCategory(category, maximum)
+This takes in two parameters: a category to look at and a maximum number of recommendations
+
+If the category doesn't exist, then it returns a string with a message "Category Doesn't exist"
+
+Otherwise it returns a list of recommendations based on number of views for that particular category
+
+Note that recommendations come in the form of 
+
+```python
+    ["category/feature", "feature_instance_id"]
+```
+
+This is so that the user can query for the records with those particular id if need be
+
+## Other classes that make the system work
+### UserManager
+This is used to manage the users in the system as well as query for specific users and histories that is paramount to the usage of recommendations based on similar histories.
+
+The class has several API's
+#### loadUsersFromFile(filelocation)
+This takes in one parameter, the file location either in absolute or relative path.
+
+It loads the user manager with the users whose data is stored in the file specified at that file location.
+
+#### saveUsersToFile(filelocation)
+This takes in one parameter, the file location to store the users data
+
+It writes all the users and their data to the file
+
+#### addUser(user)
+This has one parameter: user. This is a user to be added in the user manager class.
+
+#### searchForUser(id)
+This takes in one parameter: id. This is the id of the user that is being searched for
+
+if absent, a string of with the message return "User with id{id} doesn't exist"
+
+if present, a user is returned.
+
+#### removeUser(id)
+This takes in one parameter: id. This is the id of the user to be removed.
+
+If absent, a string with the message "User doesn't exist" is returned
+
+If present, the removed user is returned.
+
+#### returnUsersWithHistoryHavingRecordWithId(id)
+This takes in one parameter, the id of the resource that we are looking for in one's history.
+
+It returns users with resource with a certain id
+
+#### returnUsersWithHistoryHavingRecordWithIdInCategory(id, category)
+This takes in two parameters: id of the resource and the category to which it belongs.
+
+It returns users that have a resource with an ID in that category.
+
+#### getUsersWithSimilarHistories(userToCompare:User, percentage, maximum, otherUsers)
+This takes in four parameters: userToCompare takes in a user, percentage similarity, maximum number of users, and other users that should be compared.
+
+This returns a list of users that are above a certain percentage similarity.
+
+#### getUsersInRangeOfLocation(meters, location)
+This takes in two parameters: meters and location.
+
+Returns a list of users within a certain range
+
+#### getSortedListOfUsersBasedOnSimilarity(users, maximum)
+This takes in two arguments: users that need to be sorted and a maximum number of users above the similarity threshold.
+
+Returns a sorted list of users basing on the percentage history similarity.
+
+#### getAllUsers()
+This returns a list of all users.
+
+#### distanceToLocationInMeters(locationOrigin,locationDestination)
+
+This takes in two arguments: locationOrigin and locationDestination
+
+Returns the distance in meters between the two parameters
+
+## Location
+This class handles implementation of the location based interactions.
+
+It implements the following APIs
+#### getRegion()
+Returns the region presented during initialization
+
+#### getLongitude()
+Returns the longitude of the location in string form
+
+#### getLatitude()
+Returns the latitude of the location in string form
+
+#### setLatitude(latitude)
+Takes in one parameter: the latitude in string form
+Sets the latitude of the location
+
+#### setLongitude(longitude)
+Takes in one parameter: the longitude in string form
+Sets the longitude of the location
+
+#### setRegion(region)
+Takes in one parameter: the region in string form
+Sets the region of the location
+
+#### getLocationInFloat()
+Returns a list containing the float of the latitude in zero index and the float of the longitude in the first index
+
+#### getLocation()
+Returns a tuple containing the latitude in the zero index and the longitude in the first index
+
+### setLocation(latitude, longitude)
+Takes in two parameters: latitude in string form and longitude in string form
+
+Sets the longitude and latitude of a location
+
+## History
+This class is used to represent a history of a user
+
+Contains records in a user's history of a feature instance that they have viewed or seen
+
+## User
+This class deals with registration of a user in the system
+
+Contains history of a user and the user id

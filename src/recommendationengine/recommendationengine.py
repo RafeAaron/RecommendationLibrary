@@ -6,7 +6,7 @@ from recommendationengine.user import User
 from recommendationengine.location import Location
 
 class RecommendationEngine:
-    def __init__(self, id:str = None, storageEngineToQuery:StorageEngine = None, filter:FilteringEngine = None, userManager:UserManager = None):
+    def __init__(self, id:str, storageEngineToQuery:StorageEngine, filter:FilteringEngine, userManager:UserManager ):
         if id is not None:
             self.id = id
         
@@ -32,6 +32,9 @@ class RecommendationEngine:
         user = self.userManager.searchForUser(userForComparison.getId())
 
         usersWithSimilarInterests = self.userManager.getUsersWithSimilarHistories(user, 10, 100)
+
+        if usersWithSimilarInterests is not list:
+            return "Try recommendations based on number of likes"
 
         sortedListOfUsersWithSimilarInterests = self.userManager.getSortedListOfUsersBasedOnSimilarity(usersWithSimilarInterests, 100)
 
@@ -90,6 +93,9 @@ class RecommendationEngine:
         recommendations = self.recommendationsBasedOnNumberOfViews(100)
         rawdata = self.storageEngine.getRecordsInCategory(category)
 
+        if rawdata == "Category Doesn't exist":
+            return "Category Doesn't exist"
+
         recommendationFinalList = []
 
         for recommendation in recommendations:
@@ -117,7 +123,7 @@ class RecommendationEngine:
                     recommendations.append(history)
 
         for recommendation in recommendations:
-            if self.storageEngine.getRecordWithId(recommendation[1]) is not str:
+            if self.storageEngine.getRecordWithId(recommendation[1]) is str:
                 recommendationsDetailed.append(self.storageEngine.getRecordWithId(recommendation[1]))
 
         return recommendationsDetailed
