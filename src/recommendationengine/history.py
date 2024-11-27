@@ -22,12 +22,19 @@ class History:
                 if record[0] == category and record[1] == id:
                     self.history.remove(record)
 
-    def searchForRecordInHistory(self, id:str, category:str):
-        for record in self.history:
-            if record[1] == id and record[0] == category:
-                return record
-            
-        return "Record Doesn't exist"
+    def searchForRecordInHistory(self, id:str, category:str = None):
+
+        if category is None:
+            for record in self.history:
+                if record[1] == id:
+                    return True
+
+        else:
+            for record in self.history:
+                if record[1] == id and record[0] == category:
+                    return True
+                
+        return False
 
     def getHistory(self):
         return self.history
@@ -39,7 +46,7 @@ class History:
         string = "History\n"
 
         for record in self.history:
-            string += f"\t{record[0]} -> {record[1]}"
+            string += f"\t{record[0]} -> {record[1]}\n"
 
         return string
     

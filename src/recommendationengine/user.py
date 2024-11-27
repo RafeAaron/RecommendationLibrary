@@ -14,7 +14,7 @@ class User:
             self.location = location
 
         if history is None:
-            self.history:History = []
+            self.history:History = History()
         else:
             self.history:History = history.getHistory()
 
@@ -24,8 +24,8 @@ class User:
     def deleteFromHistory(self, id:str, category:str=None):
         self.history.deleteRecordInHistory(id, category)
 
-    def searchInHistory(self, id:str, category:str):
-        self.history.searchForRecordInHistory(id, category)
+    def searchInHistory(self, id:str, category:str = None):
+        return self.history.searchForRecordInHistory(id, category)
 
     def getLocation(self):
         return self.location
