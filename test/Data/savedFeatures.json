@@ -1,0 +1,36 @@
+{
+    "notifications": {
+        "NOT001": {
+            "Message": "We are letting go of 20% of our staff.",
+            "Intended Audience": [
+                "Administrators",
+                "Students",
+                "Prefects"
+            ],
+            "Date Added": "2024-02-23",
+            "Author": "Mr. Karim",
+            "NumberOfLikes": 200000
+        },
+        "NOT002": {
+            "Message": "New Enfants are required to go through the secretary's offices.",
+            "Intended Audience": [
+                "Parents",
+                "Students",
+                "Prefects"
+            ],
+            "Date Added": "2024-04-23",
+            "Author": "Mr. Longhorn",
+            "NumberOfLikes": 500000
+        },
+        "NOT003": {
+            "Message": "Come to the new student's portal.",
+            "Intended Audience": [
+                "Parents",
+                "Students"
+            ],
+            "Date Added": "2024-05-13",
+            "Author": "Mr. Bullrate",
+            "NumberOfLikes": 453000
+        }
+    }
+}

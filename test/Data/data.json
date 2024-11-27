@@ -59,21 +59,23 @@
                 "Intended Audience": ["Students", "Administrators"],
                 "dateAdded": "2024-10-29",
                 "Author": "Mr. Adams",
-                "numberOfLikes": 80000
+                "NumberOfLikes": 80000
             },
 
             "NOTIFY002": {
                 "Message": "All staff have a meeting in the Common Room at 9:30pm.",
                 "Intended Audience": ["Staff", "Administrators"],
                 "dateAdded": "2024-03-19",
-                "Author": "Mr. Black Jones"
+                "Author": "Mr. Black Jones",
+                "NumberOfLikes": 30400
             },
 
             "NOTIFY003": {
                 "Message": "We are excited to announce the increase of teachers salaries.",
                 "Intended Audience": ["Teachers"],
                 "dateAdded": "2024-01-15",
-                "Author": "Mr. Deogratious"
+                "Author": "Mr. Deogratious",
+                "NumberOfLikes": 50000
             }
         }
 }

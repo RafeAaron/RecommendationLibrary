@@ -26,9 +26,13 @@ class StorageEngine:
     def getSavedData(self):
         return self.data
     
-    def viewCategoriesOfStoredData(self):
-        for keys in self.data:
-            print(keys)
+    def returnCategoriesOfStoredData(self):
+        categories = []
+
+        for key in self.data.keys():
+            categories.append(key)
+
+        return categories
 
     def returnDataInCategory(self, category):
         values = []
@@ -63,7 +67,7 @@ class StorageEngine:
         try:
             file = open(saveLocation, "w")
             
-            saveddata = json.dumps(self.data)
+            saveddata = json.dumps(self.data, indent=4)
 
             file.write(saveddata)
 
@@ -79,56 +83,54 @@ class StorageEngine:
         else:
             return False
         
-    def doesRecordExist(self, label):
-        for value in self.data.keys():
+    def doesRecordExist(self, id):
+        for value in self.data.values():
             for subvalue in value.keys():
-                if label == subvalue:
+                if id == subvalue:
                     return True
                 
         return False
     
     def getRecordWithId(self, id:str):
-        for record in self.data.values():
-            if id not in record.keys():
+        for category in self.data.values():
+            if id in category.keys():
+                return category[id]
+            
+            else:
+                return "Record Not Present"
+    
+    def getRecordWithIdAndCategory(self, id:str, category:str):
+        if category not in self.data.keys():
+            return "Record Doesn't Exist"
+            
+        else:
+            if id not in self.data[category].keys():
                 return f"Record with id{id} doesn't exist"
             
             else:
-                for recordDetailed in record:
-                        if recordDetailed.keys()[0] == id:
-                            return recordDetailed
-    
-    def getRecordWithIdAndCategory(self, id:str, category:str):
-        for record in self.data:
-            if category not in record.keys():
-                return "Record Doesn't Exist"
-            
-            else:
-                if id not in self.data[category].keys():
-                    return f"Record with id{id} doesn't exist"
-                
-                else:
-                    for record in self.data[category]:
-                            if record.keys()[0] == id:
-                                return record
+                for record in self.data.values():
+                    if id in record.keys():
+                        return record[id]
+                        
+                    else:
+                        return "Record Not Present"
                             
     def getRecordsWithIdsInCategory(self, ids:list, category:str):
         values = []
         idsNotPresent = []
 
-        for record in self.data:
-            if category not in record.keys():
-                return f"Records Don't Exist"
+        if category not in self.data.keys():
+            return f"Records Don't Exist"
             
-            else:
-                for id in ids:
-                    if id not in self.data[category].keys():
-                        idsNotPresent.append(id)
-                        continue
+        else:
+            for id in ids:
+                if id not in self.data[category].keys():
+                    idsNotPresent.append(id)
+                    continue
                     
-                    else:
-                        for record in self.data[category]:
-                                if id in record.keys():
-                                    values.append(record)
+                else:
+                    if id in self.data[category].keys():
+                        values.append(self.data[category][id])
 
             return (values, idsNotPresent)
         
@@ -137,7 +139,7 @@ class StorageEngine:
             return "Category Doesn't exist"
         
         values = []
-        for record in self.data[category]:
+        for record in self.data[category].values():
             values.append(record)
 
         return values
@@ -145,7 +147,7 @@ class StorageEngine:
     def getAllRecords(self):
         values = []
         for category in self.data.keys():
-            for value in self.data[category]:
+            for value in self.data[category].values():
                 values.append(value)
 
         return values
@@ -167,7 +169,7 @@ class StorageEngine:
                         continue
                     
                     else:
-                        for record in self.data[category]:
+                        for record in self.data[category].values():
                                 if id in record.keys():
                                     values.append(record)
         return (values, idsNotPresent, categoriesNotPresent)
