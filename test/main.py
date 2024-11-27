@@ -8,7 +8,7 @@ from recommendationengine import storageengine
 from recommendationengine import filteringengine
 
 def main():
-    storage = storageengine.StorageEngine("./test/data.json")
+    storage = storageengine.StorageEngine("./test/Data/data.json")
     filter = filteringengine.FilteringEngine()
 
     mydata = storage.returnDataInCategory("movies") + storage.returnDataInCategory("songs") + storage.returnDataInCategory("notifications")
