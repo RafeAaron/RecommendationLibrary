@@ -2,8 +2,8 @@
 
 class FilteringEngine: 
 
-    def doesLabelExist(self, label, dataPresent:list):
-        for data in dataPresent:
+    def doesLabelExist(self, label, dataInQuestion:list):
+        for data in dataInQuestion:
             if label not in data.keys():
                 return False
             
@@ -15,13 +15,11 @@ class FilteringEngine:
 
         for dataValue in data:
             for label in labels:
-                if label in dataValue.keys() and data not in values:
+                if label in dataValue.keys() and dataValue not in values:
                     values.append(dataValue)
 
         return values
                     
-
-    
     def getRecordsWithLabel(self, label, data:list):
         values = []
 
@@ -46,8 +44,14 @@ class FilteringEngine:
         
         for dataPoint in data:
             for value in dataPoint.values():
-                if value.find(substring) != -1:
-                    values.append(value)
+                
+                if isinstance(value, str) and value.find(substring) != -1:
+                    values.append(dataPoint)
+
+                if value is list:
+                    for valueDetailed in value:
+                        if valueDetailed.find(substring) != -1:
+                            values.append(valueDetailed)
 
         return values
     
@@ -138,18 +142,19 @@ class FilteringEngine:
         takenIndexes = []
 
         for dataPoint in data:
-            if labelToUse in dataPoint.values().keys():
+            if labelToUse in dataPoint.keys():
                 dataSieved.append(dataPoint)
 
         for i in range(len(dataSieved)):
             highestIndex = 0
+            highest = -1
             for a in range(len(dataSieved)):
-                if dataSieved[a].values()[labelToUse] > highest and a not in takenIndexes:
-                    highest = dataSieved[a].values()[labelToUse]
+                if dataSieved[a][labelToUse] > highest and a not in takenIndexes:
+                    highest = dataSieved[a][labelToUse]
                     highestIndex = a
-                    takenIndexes.append(a)
+                
+            takenIndexes.append(highestIndex)
 
             values.append(dataSieved[highestIndex])
-
-                    
-            
+    
+        return values
